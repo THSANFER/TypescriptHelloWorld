@@ -1,0 +1,65 @@
+{ //Inicia o objeto JSON principal.
+  "compilerOptions": { // A seção mais importante. Define todas as regras e opções para o compilador.
+    /* =================================================================================
+     * ========                    CONFIGURAÇÕES PRINCIPAIS                     ========
+     * ================================================================================= */
+
+    "target": "ES2022", // Versão do JavaScript para a qual seu código será compilado.
+
+    "module": "CommonJS", //Define o sistema de módulos que o JavaScript gerado usará. 
+    //CommonJS é o sistema de módulos clássico do Node.js (usando require() e module.exports). 
+    // Esta é a escolha mais segura e compatível para a grande maioria dos projetos e pacotes do ecossistema Node.js.
+    
+    "rootDir": "./src", //Especifica o diretório raiz (root directory) dos seus arquivos-fonte TypeScript.
+    //O compilador só procurará por arquivos .ts dentro da pasta src. 
+    // Isso mantém o projeto organizado e impede que o compilador tente compilar arquivos de teste ou scripts que possam estar em outras pastas.
+
+    "outDir": "./dist", //Especifica o diretório de saída (output directory) para os arquivos JavaScript compilados.
+    //Quando você rodar npm run build, todos os arquivos .js resultantes serão colocados dentro de uma pasta chamada dist. 
+    // Isso separa claramente seu código-fonte do código de produção.
+
+    "esModuleInterop": true, //Ativa a interoperabilidade com módulos ECMAScript.
+    //Esta é uma opção essencial para Node.js. Ela permite que você importe bibliotecas que usam o sistema CommonJS (como o Express) de uma maneira mais limpa e moderna, 
+    // com import express from 'express'; em vez da sintaxe mais verbosa import * as express from 'express';.
+
+    /* =================================================================================
+     * ========                    QUALIDADE E RIGOR DO CÓDIGO                  ========
+     * ================================================================================= */
+
+    "strict": true, //É um "super-interruptor" que ativa um conjunto de verificações de tipo estritas.
+    //Força você a escrever um código mais seguro e explícito. 
+    //Por exemplo, ele não permitirá que você use uma variável que possa ser null ou undefined sem antes verificar, prevenindo uma grande classe de bugs.
+    //É uma das melhores práticas em TypeScript.
+
+
+    "forceConsistentCasingInFileNames": true, //Garante que a capitalização nos nomes dos arquivos seja consistente.
+    //Evita problemas de importação que podem ocorrer ao mover o projeto entre diferentes sistemas operacionais. 
+    // Por exemplo, no Windows/macOS, import './arquivo' e import './Arquivo' podem funcionar, mas em Linux (onde a maioria dos servidores roda), eles falhariam. Esta opção previne esse tipo de erro.
+
+    /* =================================================================================
+     * ========                    CONFIGURAÇÕES ADICIONAIS                     ========
+     * ================================================================================= */
+
+    "skipLibCheck": true, //Diz ao compilador para pular a verificação de tipos dos arquivos de declaração (.d.ts) das suas dependências em node_modules.
+    //Melhora drasticamente o tempo de compilação (npm run build), pois o TypeScript não precisa analisar os tipos de todas as bibliotecas que você instalou. 
+    // Você confia que os autores das bibliotecas já fizeram isso.
+    
+    
+    "sourceMap": true //Gera arquivos .js.map.
+    //Estes arquivos são "mapas" que conectam o seu código JavaScript compilado (dist/app.js) de volta ao seu código-fonte TypeScript (src/app.ts). 
+    //Isso é essencial para debugging, pois permite que mensagens de erro e breakpoints no depurador mostrem a linha correta no seu código .ts original, e não no código .js gerado.
+  
+    }, //Fecha o objeto compilerOptions.
+  
+  "include": [ //Cria uma "lista branca" (whitelist) de arquivos a serem incluídos na compilação.
+    "src/**/*" //src/**/* significa: "inclua todos os arquivos (*) dentro da pasta src e de todos os seus subdiretórios (**)". 
+    // Isso garante que apenas o seu código-fonte seja compilado.
+  ],
+
+
+  "exclude": [ //Cria uma "lista negra" (blacklist) de arquivos e pastas a serem ignorados.
+    "node_modules" //É uma medida de segurança para explicitamente dizer ao compilador: "Não importa o que aconteça, nunca tente compilar nada que esteja dentro da pasta node_modules". 
+    // Embora include já limite o escopo, exclude oferece uma garantia extra.
+  ]
+  
+} //Fecha o objeto JSON principal do arquivo.
